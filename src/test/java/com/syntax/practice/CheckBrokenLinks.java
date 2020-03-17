@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import utils.ConfigReader;
 import utils.Constants;
 
 public class CheckBrokenLinks extends Constants {
@@ -20,10 +21,11 @@ public class CheckBrokenLinks extends Constants {
 		int countVaild = 0;
 		int countBroken = 0;
 		
+		ConfigReader.readConfigProperties(CONFIG_PATH);
 		
 		System.setProperty("webdriver.chrome.driver", Constants.CHROME_DRIVER_PATH);
 		WebDriver driver = new ChromeDriver();
-		driver.get("https://preply.com/");
+		driver.get(ConfigReader.getProperty("url"));
 		
 		
 		List<WebElement> links = driver.findElements(By.tagName("a"));
@@ -56,7 +58,10 @@ public class CheckBrokenLinks extends Constants {
 					
 					
 					
+				} catch(Exception ex) {
+					System.out.println("Some exceptions");
 				}
+				
 				
 			}else {
 				System.out.println(links.get(i).getText());
