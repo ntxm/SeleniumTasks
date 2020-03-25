@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import utils.Constants;
@@ -131,8 +132,38 @@ public class Questions {
 		//send text
 		driver.findElement(By.xpath("//button[@onclick='jsPrompt()']")).click();
 		alert.sendKeys("bla-bla text");
-		Thread.sleep(1000);
 		alert.accept();
+		Thread.sleep(1000);
+		
+		/**
+		 * Perform right click, double click, context click
+		 */
+		
+		driver.get("http://the-internet.herokuapp.com/");
+		WebElement link = driver.findElement(By.linkText("Drag and Drop"));
+		
+		Actions act = new Actions(driver);
+		
+		//Mouse over
+		act.moveToElement(link).perform();
+		
+		//Right click (context click)
+		//act.contextClick(link).perform();
+		
+		//double click
+		act.doubleClick(link).perform();
+		
+		//simple click
+		act.click(link);
+		Thread.sleep(2000);
+		
+		
+		//Drag and Drop
+		WebElement drag = driver.findElement(By.id("column-a"));
+		WebElement drop = driver.findElement(By.id("column-b"));
+		
+		act.dragAndDrop(drag, drop).perform();
+		Thread.sleep(2000);
 		
 		
 		
